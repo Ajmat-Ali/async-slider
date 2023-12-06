@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide</title>
+    <style>
+        div{
+            height: 350px;
+        }
+        .stp,.nxt,.pre{
+            margin: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+
+    </div>
+    <button class="stp">Stop</button>
+    <button class="nxt">Next</button>
+    <button class="pre">Pre</button>
+</body>
+<script>
+    // console.log("slide")
+    const images = [
+                    "https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/3959ad9f670aeeeb.jpg?q=20",
+                    "https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/ed12b7707a04473c.jpg?q=20",
+                    "https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/7308a7338452882f.jpg?q=20",
+                    "https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/4995be28f180a90c.jpg?q=20",
+                    "https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/b8e07ff39439d998.jpg?q=20",
+                    "https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/8773e89ba72303d6.jpg?q=20",
+                    "https://images-eu.ssl-images-amazon.com/images/G/31/img23/Fashion/GW/Nov/OneCard/11._CB571612229_.jpg",
+                    "https://images-eu.ssl-images-amazon.com/images/G/31/img23/Beauty/GW/TBS/Makeup-PCrr._CB571612803_.jpg",
+                    "https://images-eu.ssl-images-amazon.com/images/G/31/CookwareDining/Aman/Dec/PC-3000._CB572281224_.jpg",
+                    "https://images-eu.ssl-images-amazon.com/images/G/31/img23/Consumables/SVD/Dec23/5-7/UnRec_SVD_PC_tall_Hero_3000x1200._CB572278891_.jpg",
+                    "https://images-eu.ssl-images-amazon.com/images/G/31/imgg/hero/1499/30th/nov/hero1300x1200._CB572143637_.jpg",
+                    "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Wireless/devjyoti/GW/Uber/Nov/D103625178_DesktopTallHero_3000x1200._CB574597993_.jpg",
+                    "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/dec23atf/unrec/onemonth/MA_3000._CB572177767_.jpg",
+                    "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-product-red?wid=2560&hei=1440&fmt=jpeg&qlt=95&.v=1693063801539",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7qDUZv9tZs_D9hkzK7xhDczKwo-rRjEx_hg&usqp=CAU",
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8&w=1000&q=80",
+                    "https://burst.shopifycdn.com/photos/photography-product-download.jpg?width=1000&format=pjpg&exif=0&iptc=0",
+                    "https://fixthephoto.com/images/uikit_slider/retouch-product-photos-before-after-mob-101610710058.jpg",
+                    "https://www.marico.com/page/DigitalReport2018-2019/images/product1.jpg",
+                    "https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2022/09/Intel-Core-i9-13900K-Raptor-Lake-Desktop-CPU-Performance-Leak.jpg?ssl=1&quality=80&w=f"
+                ];
+
+    function displaySlider(){
+        let div = document.querySelector("div");
+        let image = document.createElement("img");
+        let count = 0;
+        let isSlide = true;
+        let asynImg 
+
+        image.src=images[count];
+        image.style.width="100%"
+        image.style.height="100%"
+         function slideAsyn(){
+            asynImg = setInterval(()=>{
+                // console.log(count);
+                image.src=images[count];
+                count++;
+                if(count>=images.length){
+                    count=0;
+                }
+                // alert(count)
+            },1000)
+        }
+        slideAsyn();
+        let stp = document.querySelector(".stp");
+        let nxt = document.querySelector(".nxt");
+        let pre = document.querySelector(".pre");
+        stp.addEventListener("click",()=>{
+            if(isSlide){
+                isSlide=false;
+                stp.textContent="Start"
+                clearInterval(asynImg)
+            }
+            else{
+                isSlide=true;
+                stp.textContent="Stop"
+                slideAsyn()
+            }
+        })
+
+        nxt.addEventListener("click",()=>{
+            count++;
+            image.src=images[count]
+            isSlide=false;
+            stp.textContent="Start"
+            clearInterval(asynImg)
+            // console.log("next");
+            if(count>=images.length){
+                count=0;
+                image.src=images[count]
+            }
+        });
+        pre.addEventListener("click",()=>{
+            count--;
+            console.log("Pre",count);
+            image.src=images[count]
+            isSlide=false;
+            stp.textContent="Start"
+            clearInterval(asynImg)
+            // console.log("pre");
+            if(count<0){
+                count=images.length-1;
+                image.src=images[count]
+            }
+        })
+        div.append(image);
+        
+    }
+
+
+    displaySlider()
+    
+</script>
+</html>
